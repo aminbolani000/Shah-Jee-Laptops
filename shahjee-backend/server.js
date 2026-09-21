@@ -8,7 +8,11 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: '*', // Sabhi frontend domains ko access allow karne ke liye
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json({ limit: '10mb' }));
 
 app.use('/api/products', require('./routes/productRoutes'));
