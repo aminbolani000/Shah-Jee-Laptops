@@ -7,7 +7,18 @@ dotenv.config();
 
 const app = express();
 
-// Middleware to ensure DB is connected before handling any request
+// 1. Full CORS Support (Includes OPTIONS preflight handling)
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  credentials: true
+}));
+
+// Manual Preflight Handler for Vercel Serverless
+app.options('*', cors());
+
+// 2. Database Connection Middleware
 app.use(async (req, res, next) => {
   try {
     await connectDB();
@@ -18,14 +29,9 @@ app.use(async (req, res, next) => {
   }
 });
 
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
 app.use(express.json({ limit: '10mb' }));
 
+// 3. API Routes
 app.use('/api/products', require('./routes/productRoutes'));
 app.use('/api/banners', require('./routes/bannerRoutes'));
 
