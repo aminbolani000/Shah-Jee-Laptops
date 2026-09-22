@@ -4,15 +4,26 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db');
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
+// Middleware to ensure DB is connected before handling any request
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    console.error("Database Connection Error:", err);
+    res.status(500).json({ error: "Database connection failed" });
+  }
+});
+
 app.use(cors({
-  origin: '*', // Sabhi frontend domains ko access allow karne ke liye
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json({ limit: '10mb' }));
 
 app.use('/api/products', require('./routes/productRoutes'));
@@ -24,10 +35,8 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-// Local development ke liye server listen karega
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
 
-// Vercel Serverless Function ke liye App Export
 module.exports = app;
