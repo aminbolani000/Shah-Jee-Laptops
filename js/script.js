@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ==========================================
         3. HERO SLIDER & DYNAMIC BANNERS
     ========================================== */
-    const BANNER_API_URL = "https://shahjee-production-f2ef.up.railway.app/api/banners";
+    const BANNER_API_URL = "https://backend-nine-kohl-78.vercel.app/api/banners";
+    /* ===https://shahjee-production-f2ef.up.railway.app== */
 
     const slidesWrapper = document.getElementById('hero-slides-wrapper');
     const prevBtn = document.getElementById('slider-prev');
