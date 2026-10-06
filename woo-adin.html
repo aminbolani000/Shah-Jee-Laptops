@@ -282,7 +282,7 @@
 
             // Auto-redirect if already logged in
             if (localStorage.getItem('adminLoggedIn') === 'true') {
-                window.location.href = 'admin_dashboard.html';
+                window.location.href = 'gob-gob_dashboard.html';
                 return;
             }
 
@@ -315,7 +315,7 @@
                         const data = await response.json();
                         localStorage.setItem('adminLoggedIn', 'true');
                         localStorage.setItem('adminToken', data.token || 'authenticated');
-                        window.location.href = 'admin_dashboard.html';
+                        window.location.href = 'gob-gob_dashboard.html';
                         return;
                     }
                 } catch (err) {
@@ -326,7 +326,7 @@
                 if ((username === 'admin' || username === 'okay') && password === 'codewithadmin126') {
                     localStorage.setItem('adminLoggedIn', 'true');
                     localStorage.setItem('adminToken', 'fallback_token_123');
-                    window.location.href = 'admin_dashboard.html';
+                    window.location.href = 'gob-gob_dashboard.html';
                 } else {
                     loginError.style.display = 'block';
                 }
