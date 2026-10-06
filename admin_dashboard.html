@@ -565,13 +565,13 @@
 
         // Auth Check Guard
         if (localStorage.getItem('adminLoggedIn') !== 'true') {
-            window.location.href = 'admin.html';
+            window.location.href = 'woo-adin.html';
         }
 
         document.getElementById('logoutBtn').addEventListener('click', () => {
             localStorage.removeItem('adminLoggedIn');
             localStorage.removeItem('adminToken');
-            window.location.href = 'admin.html';
+            window.location.href = 'woo-adin.html';
         });
 
         let mainImageUrl = "";
